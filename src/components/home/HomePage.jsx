@@ -4,62 +4,56 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchStarWars } from '../../redux/actions/starWarsActions';
 import './homePage.less';
 
+const renderItem = (item) => {
+   return item !== 'unknown' && item !== 'n/a' ? <div className="item-data">{item}</div> : <ion-icon name="help-outline" size='medium' />;
+}
 
 const columns = [
    {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
-      // render: text => <a>{text}</a>,
    },
    {
       title: 'Birth year',
-      key: 'birth_year',
       dataIndex: 'birth_year',
       align: 'center',
-      render: (item) => <div>{item !== 'unknown' ? item : ''}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Height',
       dataIndex: 'height',
-      key: 'height',
       align: 'center',
-      render: (item) => <div>{item !== 'unknown' ? item : '0'}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Gender',
-      key: 'gender',
       dataIndex: 'gender',
       align: 'center',
-      render: (item) => <div>{item !== 'n/a' ? item : 'unknown'}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Mass',
       dataIndex: 'mass',
-      key: 'mass',
       align: 'center',
-      render: (item) => <div>{item !== 'unknown' ? item : '0'}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Hair color',
-      key: 'hair_color',
       dataIndex: 'hair_color',
       align: 'center',
-      render: (item) => <div>{item !== 'n/a' ? item : 'none'}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Skin color',
-      key: 'skin_color',
       dataIndex: 'skin_color',
       align: 'center',
-      render: (item) => <div>{item !== 'n/a' ? item : '0'}</div>
+      render: (item) => renderItem(item),
    },
    {
       title: 'Eye color',
-      key: 'eye_color',
       dataIndex: 'eye_color',
       align: 'center',
-      render: (item) => <div>{item !== 'n/a' ? item : '0'}</div>
+      render: (item) => renderItem(item),
    },
 ];
 
@@ -68,13 +62,11 @@ const HomePage = () => {
    const dispatch = useDispatch();
 
    const starWarsState = useSelector(state => state.starWarsState);
-   console.log('starWarsState', starWarsState);
-
    const { totalCount, listStarWar, loading } = starWarsState;
 
    useEffect(() => {
       dispatch(fetchStarWars(currentIndex));
-   }, [currentIndex]);
+   }, [currentIndex, dispatch]);
 
    return (
       <div>
